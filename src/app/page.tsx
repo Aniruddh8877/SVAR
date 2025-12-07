@@ -29,22 +29,19 @@ export default function Home() {
     recognition.onresult = (event: any) => {
       let interim = "";
       let finalChunks: string[] = [];
-
-      for (let i = 0; i < event.results.length; i++) {
+      // Only process new results using event.resultIndex
+      for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i];
         const transcript = result[0].transcript.trim();
-
         if (result.isFinal) {
           finalChunks.push(transcript);
         } else {
           interim += transcript + " ";
         }
       }
-
       if (finalChunks.length > 0) {
         setFinalText(prev => (prev ? prev + "\n" : "") + finalChunks.join("\n"));
       }
-
       setInterimText(interim);
     };
 
@@ -101,11 +98,10 @@ export default function Home() {
             <div className="flex items-center justify-center gap-4">
               <button
                 onClick={listening ? handleStop : handleStart}
-                className={`rounded-full px-6 py-2 text-sm font-medium text-white transition ${
-                  listening
-                    ? "bg-red-500 hover:bg-red-600"
-                    : "bg-emerald-500 hover:bg-emerald-600"
-                }`}
+                className={`rounded-full px-6 py-2 text-sm font-medium text-white transition ${listening
+                  ? "bg-red-500 hover:bg-red-600"
+                  : "bg-emerald-500 hover:bg-emerald-600"
+                  }`}
               >
                 {listening ? "Stop Listening" : "Start Listening"}
               </button>
