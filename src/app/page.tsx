@@ -91,7 +91,7 @@ export default function Home() {
           </p>
         ) : (
           <>
-            <div className="mb-4 h-96 overflow-y-auto rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-2xl text-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-50 whitespace-pre-wrap">
+            <div className="mb-4 h-[700px] overflow-y-auto rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-5xl text-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-50 whitespace-pre-wrap">
               {fullText || "Press Start and begin speaking..."}
             </div>
 
@@ -111,7 +111,7 @@ export default function Home() {
                   setFinalText("");
                   setInterimText("");
                 }}
-                className="rounded-full border border-zinc-300 px-4 py-2 text-xs font-medium text-zinc-700 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-800"
+                className="rounded-full border border-zinc-300 px-4 py-2 text-7xl font-medium text-zinc-700 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-800"
               >
                 Clear
               </button>
