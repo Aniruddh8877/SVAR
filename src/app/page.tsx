@@ -82,7 +82,7 @@ export default function Home() {
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <div className="w-full rounded-xl border border-zinc-200 bg-white p-6 shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
         <h1 className="mb-4 text-center text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-          Real-time Speech to Text
+          Real-time Speech to Text (English ( US / UK / INDIAN ))
         </h1>
 
         {!supported ? (
