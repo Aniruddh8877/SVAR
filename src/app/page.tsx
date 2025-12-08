@@ -80,7 +80,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <div className="w-full max-w-2xl rounded-xl border border-zinc-200 bg-white p-6 shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="w-full rounded-xl border border-zinc-200 bg-white p-6 shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
         <h1 className="mb-4 text-center text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
           Real-time Speech to Text
         </h1>
@@ -91,7 +91,7 @@ export default function Home() {
           </p>
         ) : (
           <>
-            <div className="mb-4 h-64 overflow-y-auto rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-50 whitespace-pre-wrap">
+            <div className="mb-4 h-96 overflow-y-auto rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-2xl text-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-50 whitespace-pre-wrap">
               {fullText || "Press Start and begin speaking..."}
             </div>
 
