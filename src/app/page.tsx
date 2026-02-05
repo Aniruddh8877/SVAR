@@ -9,6 +9,11 @@ export default function Home() {
   const [interimText, setInterimText] = useState(""); // live, in-progress text
 
   const recognitionRef = useRef<any | null>(null);
+  const listeningRef = useRef(false);
+
+  useEffect(() => {
+    listeningRef.current = listening;
+  }, [listening]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -63,18 +68,65 @@ export default function Home() {
 
   const handleStart = () => {
     if (!recognitionRef.current) return;
-    setFinalText(prev => prev); // keep previous text
-    setInterimText("");
-    recognitionRef.current.start();
-    setListening(true);
+    if (listeningRef.current) return;
+
+    try {
+      recognitionRef.current.start();
+      setListening(true);
+      listeningRef.current = true;
+      setFinalText(prev => prev); // keep previous text
+      setInterimText("");
+    } catch (error) {
+      console.warn("Speech recognition already started or failed to start:", error);
+      // Ensure state is consistent if it was already started
+      setListening(true);
+      listeningRef.current = true;
+    }
   };
 
   const handleStop = () => {
     if (!recognitionRef.current) return;
-    recognitionRef.current.stop();
-    setListening(false);
-    setInterimText("");
+
+    try {
+      recognitionRef.current.stop();
+    } catch (error) {
+      console.warn("Failed to stop recognition:", error);
+    } finally {
+      setListening(false);
+      listeningRef.current = false;
+      setInterimText("");
+    }
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Tab") {
+        e.preventDefault();
+        setFinalText("");
+        setInterimText("");
+      }
+      if (e.key === "Shift" && !e.repeat) {
+        e.preventDefault();
+        if (listeningRef.current) {
+          handleStop();
+        } else {
+          handleStart();
+        }
+      }
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      // No action needed for Shift key up in toggle mode
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  });
 
   const fullText = finalText + (interimText ? "\n" + interimText : "");
 
